@@ -7,10 +7,10 @@
         </div>
 
         <div class="flex justify-center items-center gap-3 p-3">
-            <button
+            <a href="{{ URL('admin/students/add') }}"
                 class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                 Add Student
-            </button>
+            </a>
             <form action={{ URL('admin/students') }} method="GET" class="flex items-center gap-3">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -57,10 +57,10 @@
                             <td class=" px-4 py-2 text-left">{{ $student->phone }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->class_id }}</td>
                             <td class=" px-4 py-2 text-center">
-                                <button
-                                    class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-red-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">Edit</button>
-                                <button
-                                    class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">Delete</button>
+                                <a href="#"
+                                    class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-red-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">Edit</a>
+                                <a  href="#"
+                                    class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">Delete</a>
                             </td>
                         </tr>
                     @endforeach

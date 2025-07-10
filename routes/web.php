@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 //TEST
 Route::get('/testing', [StudentController::class, 'queryScope']);
-
+Route::get('/ping', function () {
+    return response('pong');
+});
 
 
 Route::get('/', function(){
@@ -25,7 +27,9 @@ Route::prefix('admin')->group(function(){
     //Quan ly sinh vien
     Route::prefix('students')->group(function(){
         Route::get('/', [StudentController::class, 'index']);
-        Route::get('/create', [StudentController::class, 'create']);
+
+        Route::get('/add', [StudentController::class, 'add']);
+        
         Route::get('{id}/edit', [StudentController::class, 'edit']);
         
     });

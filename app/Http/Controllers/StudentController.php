@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
+use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -29,21 +31,17 @@ class StudentController extends Controller
                 'email',
                 'phone',
                 'class_id'
-            ], 'like', '%'.$request->search.'%')->paginate(10);
+            ], 'like', '%'.$request->search.'%')->paginate(12);
         }else{
-            $students = Student::paginate(10);
+            $students = Student::paginate(12);
         }
         return view('students.index', compact('students'));
     }
-    public function create(){
-        $s = new Student;
-        $s->name = 'testcreate';
-        $s->gender = 'male';
-        $s->dob = '2001-09-09';
-        $s->email = 'testemail@gmail.com';
-        $s->phone = '01234456789';
-        $s->class_id = 3;
-        $s->save();
+    //fill data to create form
+    public function add(){
+        $classes = Classes::all();
+        $students = Student::all();
+        return view('students.add', compact('classes', 'students'));
     }
     public function edit($id){
         $s = Student::find($id);
