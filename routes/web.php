@@ -4,9 +4,11 @@ use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+//TEST
+Route::get('/testing', [StudentController::class, 'queryScope']);
+
+
+
 Route::get('/', function(){
     return redirect('/admin/dashboard');
 });
@@ -23,19 +25,9 @@ Route::prefix('admin')->group(function(){
     //Quan ly sinh vien
     Route::prefix('students')->group(function(){
         Route::get('/', [StudentController::class, 'index']);
-        Route::get('/create', [StudentController::class, '']);
-        Route::get('{id}/edit', [StudentController::class, '']);
-        //Khong the goi method la private
-        Route::get('/privateStudent', [StudentController::class, 'privatefunc']);
-        //Test basic CRUD
-        Route::get('/testdb', function(){
-            return Student::all();
-        });
-        Route::get('/create_test', [StudentController::class, 'create']);
-        Route::get('/edit_test/{id}', [StudentController::class, 'edit']);
-        Route::get('/delete_test/{id}', [StudentController::class, 'delete']);
-        //Show chi tiet mot hoc sinh
-        Route::get('/{id}', [StudentController::class, 'show']);
+        Route::get('/create', [StudentController::class, 'create']);
+        Route::get('{id}/edit', [StudentController::class, 'edit']);
+        
     });
     //Quan ly lop hoc
     Route::prefix('classes')->group(function(){
@@ -80,5 +72,5 @@ Route::prefix('admin')->group(function(){
 
 //404
 Route::fallback(function(){
-    return 'This page is not found please try again!';
+    return view('404');
 });
