@@ -10,19 +10,6 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function index(Request $request){
-        //Neu co request thi chay whereAny
-        // $students = Student::when($request->search, function($query)use($request){
-        //     return $query->whereAny([
-        //         'name',
-        //         'gender',
-        //         'dob',
-        //         'email',
-        //         'phone',
-        //         'class_id'
-        //     ],'like', '%' . $request->search . '%');
-        // })//Neu khong co request thi bo qua whereAny -> lay toan bo
-        // ->get();
-        //if
         if($request->search){
             $students = Student::whereAny([
                 'name',
@@ -37,12 +24,25 @@ class StudentController extends Controller
         }
         return view('students.index', compact('students'));
     }
-    //fill data to create form
+    //fill data to add form
     public function add(){
         $classes = Classes::all();
-        $students = Student::all();
-        return view('students.add', compact('classes', 'students'));
+        return view('students.add', compact('classes'));
     }
+    //create
+    public function create(Request $request){
+        $student = new Student();
+        $student->name = $request->name;
+        $student->gender = $request->gender;
+        $student->dob = $request->dob;
+        $student->email = $request->email;
+        $student->phone = $request->phone;
+        $student->class_id = $request->class_id;
+        $student->save();
+
+        return redirect('students');
+    }
+
     public function edit($id){
         $s = Student::find($id);
         $s->name = 'testedit';

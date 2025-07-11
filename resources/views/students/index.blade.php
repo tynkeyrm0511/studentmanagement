@@ -7,11 +7,11 @@
         </div>
 
         <div class="flex justify-center items-center gap-3 p-3">
-            <a href="{{ URL('admin/students/add') }}"
+            <a href="{{ URL('students/add') }}"
                 class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                 Add Student
             </a>
-            <form action={{ URL('admin/students') }} method="GET" class="flex items-center gap-3">
+            <form action={{ URL('students') }} method="GET" class="flex items-center gap-3">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
