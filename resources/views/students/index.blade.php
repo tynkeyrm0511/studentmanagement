@@ -42,30 +42,48 @@
                         <th class=" px-4 py-2 text-left">DoB</th>
                         <th class=" px-4 py-2 text-left">Email</th>
                         <th class=" px-4 py-2 text-left">Phone</th>
-                        <th class=" px-4 py-2 text-left">Class</th>
+                        <th class=" px-4 py-2 text-left">Class ID</th>
+                        <th class=" px-4 py-2 text-left">Class Name</th>
                         <th class=" px-4 py-2 text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($students as $student)
                         <tr class="hover:bg-blue-200 ">
-                            <td class=" px-4 py-2 text-left">{{ $student->id }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->name }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->gender }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->dob }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->email }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->phone }}</td>
                             <td class=" px-4 py-2 text-left">{{ $student->class_id }}</td>
-                            <td class=" px-4 py-2 text-center">
-                                <a href="#"
-                                    class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-red-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">Edit</a>
-                                <a  href="#"
-                                    class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">Delete</a>
+                            <td class=" px-4 py-2 text-left">{{ $student->id }}</td>
+                            <td class=" px-4 py-2 text-left">
+                                {{ $classes->firstWhere('id', $student->class_id)?->name ?? 'error' }}
+                            </td>
+                            <td class="px-4 py-2 text-center">
+                                <div class="flex space-x-2 justify-center items-center">
+
+                                    <a href="{{ URL('students/edit', $student->id) }}"
+                                        class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('students.delete', ['id' => $student->id]) }}" method="POST"
+                                        onsubmit="return confirm('Are your sure you want to delete this student?')">
+                                        
+                                        @csrf
+                                        @method('DELETE')
+                                        <button
+                                            class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-red-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="8" class="px-4 py-2 text-center bg-gray-200">
+                        <td colspan="9" class="px-4 py-2 text-center bg-gray-200">
                             {{ $students->appends(request()->query())->links() }}
                         </td>
                     </tr>

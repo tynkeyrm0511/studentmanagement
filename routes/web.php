@@ -16,11 +16,18 @@ Route::get('/dashboard', function () {
 Route::get('/login', function () {
     return view('login');
 });
-
+//Quan ly sinh vien
 Route::prefix('/students')->group(function () {
-    Route::get('/', [StudentController::class, 'index']);
-    Route::get('/add', [StudentController::class, 'add']);
-    Route::post('create', [StudentController::class, 'create']);
+    //read
+    Route::get('/', [StudentController::class, 'index'])->name('students.index');
+    //create
+    Route::get('/add', [StudentController::class, 'add'])->name('students.add');
+    Route::post('create', [StudentController::class, 'create'])->name('students.create');
+    //update
+    Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('students.edit');
+    Route::post('/update/{id}', [StudentController::class, 'update'])->name('students.update');
+    //delete
+    Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('students.delete');
 });
 
 //404

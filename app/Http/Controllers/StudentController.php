@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    //index HTTP_GET VIEW
     public function index(Request $request){
         if($request->search){
             $students = Student::whereAny([
@@ -18,45 +19,65 @@ class StudentController extends Controller
                 'email',
                 'phone',
                 'class_id'
-            ], 'like', '%'.$request->search.'%')->paginate(12);
+            ], 'like', '%'.$request->search.'%')->paginate(10);
         }else{
-            $students = Student::paginate(12);
+            $students = Student::paginate(10);
         }
-        return view('students.index', compact('students'));
+        $classes = Classes::all();
+        return view('students.index', compact('students', 'classes'));
     }
-    //fill data to add form
+    //fill data to Add Form HTTP_GET VIEW
     public function add(){
         $classes = Classes::all();
         return view('students.add', compact('classes'));
     }
-    //create
+    //create HTTP_POST
     public function create(Request $request){
-        $student = new Student();
-        $student->name = $request->name;
-        $student->gender = $request->gender;
-        $student->dob = $request->dob;
-        $student->email = $request->email;
-        $student->phone = $request->phone;
-        $student->class_id = $request->class_id;
-        $student->save();
+        $students = new Student();
+        $students->name = $request->name;
+        $students->gender = $request->gender;
+        $students->dob = $request->dob;
+        $students->email = $request->email;
+        $students->phone = $request->phone;
+        $students->class_id = $request->class_id;
+        $students->save();
 
         return redirect('students');
     }
-
+    //edit HTTP_GET
     public function edit($id){
-        $s = Student::find($id);
-        $s->name = 'testedit';
-        $s->gender = 'female';
-        $s->dob = '2001-09-09';
-        $s->email = 'testemail@gmail.com';
-        $s->phone = '1111111111';
-        $s->class_id = 1;
-        $s->update();
+        $students = Student::findOrFail($id);
+        $classes = Classes::all();
+        return view('students.edit', compact('students','classes'));
     }
-    public function delete($id){
-        $s = Student::findOrFail($id);
-        $s->delete();
+    //update HTTP_POST
+    public function update(Request $request, $id){
+
+        $students = Student::findOrFail($id);
+        $students->name = $request->name;
+        $students->gender = $request->gender;
+        $students->dob = $request->dob;
+        $students->email = $request->email;
+        $students->phone = $request->phone;
+        $students->class_id = $request->class_id;
+        $students->update();
+
+        return redirect('students');
     }
+    //delete HTTP_DELETE
+    public function destroy(Request $request, $id){
+        $students = Student::findOrFail($id)->delete();
+        return redirect('students');
+    }
+
+
+
+
+
+
+
+
+
     public function whereCondition(){
         //AND
             //Old Laravel
