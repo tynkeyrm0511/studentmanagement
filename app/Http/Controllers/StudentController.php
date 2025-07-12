@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentAddRequest;
 use App\Models\Classes;
-use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -13,6 +13,7 @@ class StudentController extends Controller
     public function index(Request $request){
         if($request->search){
             $students = Student::whereAny([
+                'id',
                 'name',
                 'gender',
                 'dob',
@@ -34,12 +35,11 @@ class StudentController extends Controller
     //create HTTP_POST
     public function create(Request $request){
         $request->validate([
-            'name'=>'required|string|max:255',
-            'gender'=>'required|in:male,female',
-            'dob'=>'required|date',
-            'email'=>'required|email|unique:students,email',
-            'phone'=>'required|string|max:255',
-            'class_id'=>'integer|min:1|max:20',
+            'name' => 'required|string|max:255',
+            'gender' => 'required|in:male,female',
+            'dob' => 'required|date',
+            'phone' => 'required|string|max:255',
+            'class_id' => 'integer|min:1|max:20',
         ]);
         $students = new Student();
         $students->name = $request->name;
@@ -60,6 +60,14 @@ class StudentController extends Controller
     }
     //update HTTP_POST
     public function update(Request $request, $id){
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'gender' => 'required|in:male,female',
+            'dob' => 'required|date',
+            'phone' => 'required|string|max:255',
+            'class_id' => 'integer|min:1|max:20',
+        ]);
 
         $students = Student::findOrFail($id);
         $students->name = $request->name;

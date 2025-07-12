@@ -71,7 +71,7 @@
                         class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-green-800 hover:cursor-pointer focus:outline-none focus:bg-gray-600">
                         Save
                     </button>
-                    <a href="{{ URL('admin/students') }}"
+                    <a href="{{ route('students.index') }}"
                         class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-red-800 hover:cursor-pointer focus:outline-none focus:bg-gray-600">
                         Cancel
                     </a>

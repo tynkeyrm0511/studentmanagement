@@ -3,15 +3,15 @@
 @section('content')
     <div>
         <div class="p-3">
-            <h1 class="text-2xl text-gray-600 font-bold flex justify-center">MANAGE STUDENTS</h1>
+            <h1 class="text-2xl text-gray-600 font-bold flex justify-center">MANAGE CLASS</h1>
         </div>
 
         <div class="flex justify-center items-center gap-3 p-3">
-            <a href="{{ URL('students/add') }}"
+            <a href="{{ URL('classes/add') }}"
                 class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                Add Student
+                Add Class
             </a>
-            <form action={{ URL('students') }} method="GET" class="flex items-center gap-3">
+            <form action={{ URL('classes') }} method="GET" class="flex items-center gap-3">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -38,37 +38,23 @@
                     <tr class="bg-blue-600 text-white">
                         <th class=" px-4 py-2 text-left">ID</th>
                         <th class=" px-4 py-2 text-left">Name</th>
-                        <th class=" px-4 py-2 text-left">Gender</th>
-                        <th class=" px-4 py-2 text-left">DoB</th>
-                        <th class=" px-4 py-2 text-left">Email</th>
-                        <th class=" px-4 py-2 text-left">Phone</th>
-                        <th class=" px-4 py-2 text-left">Class ID</th>
-                        <th class=" px-4 py-2 text-left">Class Name</th>
-                        <th class=" px-4 py-2 text-center">Action</th>
+                        <th class=" px-4 py-2 text-right">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($students as $student)
+                    @foreach ($classes as $class)
                         <tr class="hover:bg-blue-200 ">
-                            <td class=" px-4 py-2 text-left">{{ $student->id }}</td>
-                            <td class=" px-4 py-2 text-left">{{ $student->name }}</td>
-                            <td class=" px-4 py-2 text-left">{{ $student->gender }}</td>
-                            <td class=" px-4 py-2 text-left">{{ $student->dob }}</td>
-                            <td class=" px-4 py-2 text-left">{{ $student->email }}</td>
-                            <td class=" px-4 py-2 text-left">{{ $student->phone }}</td>
-                            <td class=" px-4 py-2 text-left">{{ $student->class_id }}</td>
-                            <td class=" px-4 py-2 text-left">
-                                {{ $classes->firstWhere('id', $student->class_id)?->name ?? 'error' }}
-                            </td>
+                            <td class=" px-4 py-2 text-left">{{ $class->id }}</td>
+                            <td class=" px-4 py-2 text-left">{{ $class->name }}</td>
                             <td class="px-4 py-2 text-center">
-                                <div class="flex space-x-2 justify-center items-center">
+                                <div class="flex space-x-2 justify-end items-center">
 
-                                    <a href="{{ URL('students/edit', $student->id) }}"
+                                    <a href="{{ URL('students/edit', $class->id) }}"
                                         class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('students.delete', ['id' => $student->id]) }}" method="POST"
+                                    <form action="{{ route('students.delete', ['id' => $class->id]) }}" method="POST"
                                         onsubmit="return confirm('Are your sure you want to delete this student?')">
 
                                         @csrf
@@ -84,7 +70,7 @@
                     @endforeach
                     <tr>
                         <td colspan="9" class="px-4 py-2 text-center bg-gray-200">
-                            {{ $students->appends(request()->query())->links() }}
+                            {{ $classes->appends(request()->query())->links() }}
                         </td>
                     </tr>
                 </tbody>
@@ -94,5 +80,4 @@
 @endsection
 
 @section('script')
-    {{-- Javascript --}}
 @endsection

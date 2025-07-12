@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,10 @@ Route::prefix('/students')->group(function () {
     //delete
     Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('students.delete');
 });
-
+//Quan ly sinh vien
+Route::prefix('classes')->group(function(){
+    Route::get('/',[ClassesController::class, 'index'])->name('classes.index');
+});
 //404
 Route::fallback(function () {
     return view('404');
