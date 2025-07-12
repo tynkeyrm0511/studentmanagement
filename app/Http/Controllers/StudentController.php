@@ -33,6 +33,14 @@ class StudentController extends Controller
     }
     //create HTTP_POST
     public function create(Request $request){
+        $request->validate([
+            'name'=>'required|string|max:255',
+            'gender'=>'required|in:male,female',
+            'dob'=>'required|date',
+            'email'=>'required|email|unique:students,email',
+            'phone'=>'required|string|max:255',
+            'class_id'=>'integer|min:1|max:20',
+        ]);
         $students = new Student();
         $students->name = $request->name;
         $students->gender = $request->gender;
