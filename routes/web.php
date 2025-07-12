@@ -33,8 +33,14 @@ Route::prefix('/students')->group(function () {
 //Quan ly sinh vien
 Route::prefix('classes')->group(function(){
     Route::get('/',[ClassesController::class, 'index'])->name('classes.index');
+
     Route::get('/add', function(){return view('classes.add');})->name('classes.add');
     Route::post('/create', [ClassesController::class, 'create'])->name('classes.create');
+    
+    Route::get('/edit/{id}', [ClassesController::class, 'edit'])->name('classes.edit');
+    Route::post('/update/{id}', [ClassesController::class, 'update'])->name('classes.update');
+
+    Route::delete('/delete/{id}', [ClassesController::class, 'destroy'])->name('classes.delete');
 });
 //404
 Route::fallback(function () {

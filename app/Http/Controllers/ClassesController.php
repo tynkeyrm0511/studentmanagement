@@ -28,14 +28,28 @@ class ClassesController extends Controller
         $classes->name = $request->name;
         $classes->save();
 
-        return redirect('classes');
+        return redirect('/classes');
     }
 
-    public function update(){
+    public function edit($id){
+        $classes = Classes::findOrFail($id);
+        return view('classes.edit', compact('classes'));
+    }
+    public function update(Request $request, $id){
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+        $classes = Classes::findOrFail($id);
+        $classes->name=$request->name;
+        $classes->update();
 
+        return redirect('/classes');
     }
 
-    public function delete(){
+    public function destroy(Request $request, $id){
+        $classes = Classes::findOrFail($id);
+        $classes->delete();
 
+        return redirect('/classes');
     }
 }

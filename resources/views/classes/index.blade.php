@@ -49,13 +49,13 @@
                             <td class="px-4 py-2 text-center">
                                 <div class="flex space-x-2 justify-end items-center">
 
-                                    <a href="{{ URL('students/edit', $class->id) }}"
+                                    <a href="{{ URL('classes/edit', $class->id) }}"
                                         class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('students.delete', ['id' => $class->id]) }}" method="POST"
-                                        onsubmit="return confirm('Are your sure you want to delete this student?')">
+                                    <form action="{{ route('classes.delete', ['id' => $class->id]) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this class?')">
 
                                         @csrf
                                         @method('DELETE')
