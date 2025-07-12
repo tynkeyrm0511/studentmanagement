@@ -33,6 +33,8 @@ Route::prefix('/students')->group(function () {
 //Quan ly sinh vien
 Route::prefix('classes')->group(function(){
     Route::get('/',[ClassesController::class, 'index'])->name('classes.index');
+    Route::get('/add', function(){return view('classes.add');})->name('classes.add');
+    Route::post('/create', [ClassesController::class, 'create'])->name('classes.create');
 });
 //404
 Route::fallback(function () {

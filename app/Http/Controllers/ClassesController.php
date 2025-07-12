@@ -19,8 +19,16 @@ class ClassesController extends Controller
         return view('classes.index', compact('classes'));
     }
 
-    public function create(){
+    public function create(Request $request){
 
+        $request->validate([
+            'name'=>'required|string|max:255'
+        ]);
+        $classes = new Classes();
+        $classes->name = $request->name;
+        $classes->save();
+
+        return redirect('classes');
     }
 
     public function update(){
@@ -28,6 +36,6 @@ class ClassesController extends Controller
     }
 
     public function delete(){
-        
+
     }
 }
