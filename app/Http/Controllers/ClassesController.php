@@ -28,7 +28,7 @@ class ClassesController extends Controller
         $classes->name = $request->name;
         $classes->save();
 
-        return redirect('/classes');
+        return redirect()->route('classes.index');
     }
 
     public function edit($id){
@@ -43,13 +43,13 @@ class ClassesController extends Controller
         $classes->name=$request->name;
         $classes->update();
 
-        return redirect('/classes');
+        return redirect()->route('classes.index');
     }
 
     public function destroy(Request $request, $id){
         $classes = Classes::findOrFail($id);
         $classes->delete();
 
-        return redirect('/classes');
+        return redirect()->route('classes.index');
     }
 }

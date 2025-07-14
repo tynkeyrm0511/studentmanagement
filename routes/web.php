@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectsController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +13,7 @@ Route::get('/', function () {
 //Trang chu
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
+})->name('dashboard');
 //Dang nhap
 Route::get('/login', function () {
     return view('login');
@@ -30,7 +31,7 @@ Route::prefix('/students')->group(function () {
     //delete
     Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('students.delete');
 });
-//Quan ly sinh vien
+//Quan ly lop hoc
 Route::prefix('classes')->group(function(){
     Route::get('/',[ClassesController::class, 'index'])->name('classes.index');
 
@@ -41,6 +42,15 @@ Route::prefix('classes')->group(function(){
     Route::post('/update/{id}', [ClassesController::class, 'update'])->name('classes.update');
 
     Route::delete('/delete/{id}', [ClassesController::class, 'destroy'])->name('classes.delete');
+});
+//Quan ly mon hoc
+Route::prefix('subjects')->group(function(){
+   Route::get('/', [SubjectsController::class, 'index'])->name('subjects.index');
+   Route::get('/add', [SubjectsController::class, 'add'])->name('subjects.add');
+   Route::post('/create',[SubjectsController::class, 'create'])->name('subjects.create');
+   Route::get('/edit/{id}', [SubjectsController::class, 'edit'])->name('subjects.edit');
+   Route::post('/update/{id}', [SubjectsController::class, 'update'])->name('subjects.update');
+   Route::delete('/delete/{id}', [SubjectsController::class, 'destroy'])->name('subjects.delete');
 });
 //404
 Route::fallback(function () {

@@ -50,7 +50,7 @@ class StudentController extends Controller
         $students->class_id = $request->class_id;
         $students->save();
 
-        return redirect('students');
+        return redirect()->route('students.index');
     }
     //edit HTTP_GET
     public function edit($id){
@@ -78,12 +78,12 @@ class StudentController extends Controller
         $students->class_id = $request->class_id;
         $students->update();
 
-        return redirect('students');
+        return redirect()->route('students.index');
     }
     //delete HTTP_DELETE
     public function destroy(Request $request, $id){
         $students = Student::findOrFail($id)->delete();
-        return redirect('students');
+        return redirect()->route('students.index');
     }
 
 
