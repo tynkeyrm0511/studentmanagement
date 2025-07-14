@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectsController;
+use App\Http\Controllers\GradesController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
@@ -46,11 +47,26 @@ Route::prefix('classes')->group(function(){
 //Quan ly mon hoc
 Route::prefix('subjects')->group(function(){
    Route::get('/', [SubjectsController::class, 'index'])->name('subjects.index');
+
    Route::get('/add', [SubjectsController::class, 'add'])->name('subjects.add');
    Route::post('/create',[SubjectsController::class, 'create'])->name('subjects.create');
+
    Route::get('/edit/{id}', [SubjectsController::class, 'edit'])->name('subjects.edit');
    Route::post('/update/{id}', [SubjectsController::class, 'update'])->name('subjects.update');
+   
    Route::delete('/delete/{id}', [SubjectsController::class, 'destroy'])->name('subjects.delete');
+});
+//Quan ly diem
+Route::prefix('grades')->group(function(){
+    Route::get('/', [GradesController::class, 'index'])->name('grades.index');
+
+    Route::get('/add',[GradesController::class, 'add'])->name('grades.add');
+    Route::post('/create', [GradesController::class, 'create'])->name('grades.create');
+
+    Route::get('/edit/{id}', [GradesController::class, 'edit'])->name('grades.edit');
+    Route::post('/update/{id}', [GradesController::class, 'update'])->name('grades.update');
+
+    Route::delete('/delete/{id}', [GradesController::class, 'destroy'])->name('grades.delete');
 });
 //404
 Route::fallback(function () {
