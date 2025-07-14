@@ -6,7 +6,7 @@
         {{-- Row 1: Welcome & Clock --}}
         <div class="grid grid-cols-3 gap-4">
             <div class="col-span-2">
-                <div class="p-6 h-full bg-blue-100 border-l-4 border-blue-500 rounded-lg shadow">
+                <div class="p-6 h-full bg-blue-100 hover:bg-blue-200 transition duration-300 ease-in-out border-l-4 border-blue-500  rounded-lg shadow">
                     <p class="text-2xl font-bold mt-2 text-gray-700">
                         Welcome to the Student Management System
                     </p>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-span-1">
-                <div class="p-6 h-full bg-green-100 border-l-4 border-green-500 rounded-lg shadow">
+                <div class="p-6 h-full bg-green-100 hover:bg-green-200 transition duration-300 ease-in-out border-l-4 border-green-500 rounded-lg shadow">
                     <h1 class="text-2xl font-bold text-green-700">Welcome back!</h1>
                     <p class="mt-2 text-gray-700 text-xl font-mono" id="clock"></p> {{-- Thêm class cho đồng hồ --}}
                 </div>
@@ -30,35 +30,29 @@
         {{-- Row 2: Statistics Cards --}}
         <div class="grid grid-cols-3 gap-4">
             {{-- Students Card --}}
-            <div class="p-6 bg-white border-l-4 border-indigo-500 rounded-lg shadow">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-semibold text-indigo-600">Students</h2>
-                    <span class="text-2xl font-bold text-indigo-600">{{ $studentsCount }}</span>
-                </div>
-                <div class="mt-4 h-[200px]">
-                    <canvas id="studentsChart"></canvas>
+            <div class="p-6 bg-indigo-100 hover:bg-indigo-200 transition duration-300 ease-in-out border-l-4 border-indigo-500 rounded-lg shadow">
+                <div class="flex flex-col items-center justify-center">
+                    <h2 class="text-xl font-semibold text-indigo-800">Total Students</h2>
+                    <span class="text-4xl font-bold text-indigo-800 mt-4 counter">{{ $studentsCount }}</span>
+                    <i class="fas fa-users text-9xl text-indigo-800 mt-4"></i>
                 </div>
             </div>
 
             {{-- Classes Card --}}
-            <div class="p-6 bg-white border-l-4 border-yellow-500 rounded-lg shadow">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-semibold text-yellow-600">Classes</h2>
-                    <span class="text-2xl font-bold text-yellow-600">{{ $classesCount }}</span>
-                </div>
-                <div class="mt-4 h-[200px]">
-                    <canvas id="classesChart"></canvas>
+            <div class="p-6 bg-yellow-100 hover:bg-yellow-200 transition duration-300 ease-in-out border-l-4 border-yellow-500 rounded-lg shadow">
+                <div class="flex flex-col items-center justify-center">
+                    <h2 class="text-xl font-semibold text-yellow-800">Total Classes</h2>
+                    <span class="text-4xl font-bold text-yellow-800 mt-4 counter">{{ $classesCount }}</span>
+                    <i class="fas fa-chalkboard text-9xl text-yellow-800 mt-4"></i>
                 </div>
             </div>
 
             {{-- Subjects Card --}}
-            <div class="p-6 bg-white border-l-4 border-purple-500 rounded-lg shadow">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-semibold text-purple-600">Subjects</h2>
-                    <span class="text-2xl font-bold text-purple-600">{{ $subjectsCount }}</span>
-                </div>
-                <div class="mt-4 h-[200px]">
-                    <canvas id="subjectsChart"></canvas>
+            <div class="p-6 bg-purple-100 hover:bg-purple-200 transition duration-300 ease-in-out border-l-4 border-purple-500 rounded-lg shadow">
+                <div class="flex flex-col items-center justify-center">
+                    <h2 class="text-xl font-semibold text-purple-800">Total Subjects</h2>
+                    <span class="text-4xl font-bold text-purple-800 mt-4 counter">{{ $subjectsCount }}</span>
+                    <i class="fas fa-book text-9xl text-purple-800 mt-4"></i>
                 </div>
             </div>
         </div>
@@ -93,60 +87,26 @@
         setInterval(updateClock, 1000);
         updateClock(); // Initial call
 
-        // Common chart options
-        const commonOptions = {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: false
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.innerText);
+            const duration = 1000; // 1 second
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                counter.innerText = Math.round(current);
+                
+                if(current < target) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.innerText = target;
                 }
-            }
-        };
+            };
 
-        // Students Chart
-        new Chart(document.getElementById('studentsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Total Students'],
-                datasets: [{
-                    data: [{{ $studentsCount }}],
-                    backgroundColor: 'rgba(99, 102, 241, 0.5)',
-                    borderColor: 'rgb(99, 102, 241)',
-                    borderWidth: 1
-                }]
-            },
-            options: commonOptions
-        });
-
-        // Classes Chart
-        new Chart(document.getElementById('classesChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Total Classes'],
-                datasets: [{
-                    data: [{{ $classesCount }}],
-                    backgroundColor: 'rgba(234, 179, 8, 0.5)',
-                    borderColor: 'rgb(234, 179, 8)',
-                    borderWidth: 1
-                }]
-            },
-            options: commonOptions
-        });
-
-        // Subjects Chart
-        new Chart(document.getElementById('subjectsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Total Subjects'],
-                datasets: [{
-                    data: [{{ $subjectsCount }}],
-                    backgroundColor: 'rgba(168, 85, 247, 0.5)',
-                    borderColor: 'rgb(168, 85, 247)',
-                    borderWidth: 1
-                }]
-            },
-            options: commonOptions
+            updateCounter();
         });
     </script>
 @endsection
