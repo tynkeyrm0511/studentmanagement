@@ -11,14 +11,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-    <div class="grid grid-cols-12 h-screen">
-        <div class="col-span-2 text-white">
-            @include('layouts.sidebar')
+    @auth
+        <div class="grid grid-cols-12 h-screen">
+            <div class="col-span-2 text-white">
+                @include('layouts.sidebar')
+            </div>
+            <div class="col-span-10 bg-gray-100">
+                @yield('content')
+            </div>
         </div>
-        <div class="col-span-10 bg-gray-100">
-            @yield('content')
-        </div>
-    </div>
+    @else
+        @yield('content') {{-- Để phòng trường hợp lỗi fallback --}}
+    @endauth
 </body>
     @yield('script')
 </html>
