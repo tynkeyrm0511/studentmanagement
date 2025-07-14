@@ -1,87 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="p-3">
-        <h1 class="text-2xl text-gray-600 font-bold flex justify-center">MANAGE SUBJECTS</h1>
-    </div>
+    <div>
+        <div class="p-3">
+            <h1 class="text-2xl text-gray-600 font-bold flex justify-center">
+                {{ $subject->name }} - {{ $class->name }}
+            </h1>
+        </div>
+        <form action="{{ route('grades.store') }}" method="POST">
+            @csrf
 
-    <div class="flex justify-center items-center gap-3 p-3">
-        <a href="{{ route('grades.add') }}"
-            class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-            Add Subject
-        </a>
-        <form action="" method="GET" class="flex items-center gap-3">
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                    </svg>
-                </span>
-                <input id="search" name="search" type="text" value="{{ request('search') }}"
-                    class="w-full py-2 pl-10 pr-80 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                    placeholder="Search">
+            <input type="hidden" name="subject_id" value="{{ $subject_id }}">
+            <input type="hidden" name="class_id" value="{{ $class_id }}">
+
+            <div class="p-3">
+                <table class="overflow-hidden rounded-lg shadow-md w-full mx-auto">
+                    <thead>
+                        <tr class="bg-blue-600 text-white">
+                            <th class=" px-4 py-2 text-left">Index</th>
+                            <th class=" px-4 py-2 text-left">Student name</th>
+                            <th class=" px-4 py-2 text-left">Student id</th>
+                            <th class=" px-4 py-2 text-center">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $index => $student)
+                            <tr class="hover:bg-blue-200 ">
+                                <td class=" px-4 py-2 text-left">{{ $index + 1 }}</td>
+                                <td class=" px-4 py-2 text-left">{{ $student->name }}</td>
+                                <td class=" px-4 py-2 text-left">{{ $student->id }}</td>
+                                <td class=" px-4 py-2 text-center">
+                                    <input
+                                        class="block w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                        type="number" name="scores[{{ $student->id }}]"
+                                        value="{{ $grades[$student->id]->score ?? '' }}" step="0.1" min="0"
+                                        max="10" class="form-control" />
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="9" class="px-4 py-2 text-center bg-gray-200">
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="flex justify-end mt-6 gap-3">
+                    <button type="submit"
+                        class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-green-800 hover:cursor-pointer focus:outline-none focus:bg-gray-600">
+                        Save all
+                    </button>
+                    <a href="{{ route('grades.select') }}"
+                        class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-green-800 hover:cursor-pointer focus:outline-none focus:bg-gray-600">
+                        Back
+                    </a>
+                </div>
             </div>
-            <button type="submit"
-                class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                Search
-            </button>
         </form>
     </div>
-
-    <div class="p-3">
-        <table class="overflow-hidden rounded-lg shadow-md w-full mx-auto">
-            <thead>
-                <tr class="bg-blue-600 text-white">
-                    <th class=" px-4 py-2 text-left">Grade ID</th>
-                    <th class=" px-4 py-2 text-left">Student name</th>
-                    <th class=" px-4 py-2 text-left">Subject name</th>
-                    <th class=" px-4 py-2 text-left">Score</th>
-                    <th class=" px-4 py-2 text-right">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($grades as $grade)
-                    <tr class="hover:bg-blue-200 ">
-                        <td class=" px-4 py-2 text-left">{{ $grade->id }}</td>
-
-                        <td class=" px-4 py-2 text-left">{{ $grade->student->name }}</td>
-                        <td class=" px-4 py-2 text-left">{{ $grade->subject->name }}</td>
-
-                        <td class=" px-4 py-2 text-left">{{ $grade->score }}</td>
-                        <td class="px-4 py-2 text-right">
-                            <div class="flex space-x-2 justify-end items-center">
-
-                                <a href=""
-                                    class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">
-                                    Edit
-                                </a>
-
-                                <form action="" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this subject?')">
-
-                                    @csrf
-                                    @method('DELETE')
-                                    <button
-                                        class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-red-700 hover:cursor-pointer focus:outline-none focus:ring focus:ring-blue-800">
-                                        Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td colspan="9" class="px-4 py-2 text-center bg-gray-200">
-                        {{ $grades->appends(request()->query())->links() }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-@endsection
-
-@section('script')
 @endsection

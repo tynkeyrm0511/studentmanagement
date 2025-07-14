@@ -5,6 +5,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\GradesController;
 use App\Models\Student;
+use App\Models\Classes;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,9 +15,12 @@ Route::get('/', function () {
 });
 //Trang chu
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-//Dang nhap
+    return view('dashboard', [
+        'studentsCount' => Student::count(),
+        'classesCount' => Classes::count(), 
+        'subjectsCount' => Subject::count()
+    ]);
+})->name('dashboard');//Dang nhap
 Route::get('/login', function () {
     return view('login');
 });
@@ -58,15 +63,12 @@ Route::prefix('subjects')->group(function(){
 });
 //Quan ly diem
 Route::prefix('grades')->group(function(){
+    //Chon mon va lop muon nhap diem
+    Route::get('/select', [GradesController::class, 'select'])->name('grades.select');
+    //Hien thi danh sach diem theo lop va mon
     Route::get('/', [GradesController::class, 'index'])->name('grades.index');
-
-    Route::get('/add',[GradesController::class, 'add'])->name('grades.add');
-    Route::post('/create', [GradesController::class, 'create'])->name('grades.create');
-
-    Route::get('/edit/{id}', [GradesController::class, 'edit'])->name('grades.edit');
-    Route::post('/update/{id}', [GradesController::class, 'update'])->name('grades.update');
-
-    Route::delete('/delete/{id}', [GradesController::class, 'destroy'])->name('grades.delete');
+    //Nhap va sua diem
+    Route::post('/', [GradesController::class, 'store'])->name('grades.store');
 });
 //404
 Route::fallback(function () {
