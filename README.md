@@ -1,4 +1,4 @@
-# Student Management System 🎓
+# Student Management System
 
 Một hệ thống quản lý sinh viên đơn giản được xây dựng bằng Laravel 12, TailwindCSS. Dự án hỗ trợ quản trị viên dễ dàng theo dõi và cập nhật thông tin sinh viên, lớp học, môn học và điểm số.
 
@@ -9,13 +9,14 @@ Một hệ thống quản lý sinh viên đơn giản được xây dựng bằn
 - **HTML/CSS**
 - **MySQL**
 ## Một số hình ảnh
-
-![Dashboard](screenshots/dashboard.png)
-![Manage Students](screenshots/dashboard.png)
-![Manage Classes](screenshots/dashboard.png)
-![Manage Subjects](screenshots/dashboard.png)
-![Manage Grades](screenshots/dashboard.png)
-
+![Login](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(9).png)
+![Dashboard](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(2).png)
+![Manage Students](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(3).png)
+![Manage Classes](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(4).png)
+![Manage Subjects](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(5).png)
+![Manage Grades 1](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(6).png)
+![Manage Grades 2](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(7).png)
+![Manage Profile](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(8).png)
 ## Chức năng chính
 
 ### Xác thực
