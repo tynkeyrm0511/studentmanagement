@@ -59,7 +59,7 @@ Một hệ thống quản lý sinh viên đơn giản được xây dựng bằn
 
 ## Cài đặt và chạy dự án
 ### 1. Clone repo
-git clone https://github.com/your-username/student-management.git
+git clone https://github.com/tynkeyrm0511/studentmanagement.git
 cd student-management
 ### 2. Cài đặt package
 composer install
