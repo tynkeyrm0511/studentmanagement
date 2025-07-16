@@ -60,12 +60,15 @@ Một hệ thống quản lý sinh viên đơn giản được xây dựng bằn
 ## Cài đặt và chạy dự án
 ### 1. Clone repo
 git clone https://github.com/tynkeyrm0511/studentmanagement.git
+
 cd student-management
 ### 2. Cài đặt package
 composer install
+
 npm install && npm run dev
 ### 3. Cấu hình .env
 cp .env.example .env
+
 php artisan key:generate
 ### 4. Tạo database và chạy migrate
 php artisan migrate --seed
@@ -73,6 +76,7 @@ php artisan migrate --seed
 composer run dev
 ### 6. Đăng nhập admin (tài khoản mặc định)
 Email: admin@email.com
+
 Password: password
 
 
