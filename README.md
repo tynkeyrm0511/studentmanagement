@@ -9,13 +9,20 @@ Một hệ thống quản lý sinh viên đơn giản được xây dựng bằn
 - **HTML/CSS**
 - **MySQL**
 ## Một số hình ảnh
+### Login
 ![Login](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(9).png)
+### Dashboard
 ![Dashboard](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(2).png)
+### Students
 ![Manage Students](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(3).png)
+### Classes
 ![Manage Classes](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(4).png)
+### Subjects
 ![Manage Subjects](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(5).png)
+### Grades
 ![Manage Grades 1](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(6).png)
 ![Manage Grades 2](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(7).png)
+### Profile
 ![Manage Profile](https://raw.githubusercontent.com/tynkeyrm0511/studentmanagement/refs/heads/main/Screenshots/Screenshot%20(8).png)
 ## Chức năng chính
 
